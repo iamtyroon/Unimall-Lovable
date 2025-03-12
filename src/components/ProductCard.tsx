@@ -1,9 +1,12 @@
 
 import { Button } from "@/components/ui/button";
-import { ShoppingBag, Heart } from "lucide-react";
+import { ShoppingBag, Heart, Eye } from "lucide-react";
 import { useState } from "react";
+import { useToast } from "@/components/ui/toast";
+import { useCart } from "@/contexts/CartContext";
+import { Link } from "react-router-dom";
 
-interface Product {
+export interface Product {
   id: number;
   name: string;
   price: string;
@@ -17,6 +20,17 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const [isFavorite, setIsFavorite] = useState(false);
+  const { addToCart } = useCart();
+  const { toast } = useToast();
+  
+  const handleAddToCart = () => {
+    addToCart(product);
+    toast({
+      title: "Added to cart",
+      description: `${product.name} has been added to your cart.`,
+      duration: 3000,
+    });
+  };
   
   return (
     <div className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
@@ -42,15 +56,18 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <div className="flex space-x-2">
           <Button 
             className="flex-grow bg-uniprimary hover:bg-uniprimary-dark text-white"
+            onClick={handleAddToCart}
           >
             <ShoppingBag className="mr-2 h-4 w-4" /> Add to Cart
           </Button>
-          <Button 
-            variant="outline" 
-            className="border-uniprimary text-uniprimary hover:bg-uniprimary/10"
-          >
-            Details
-          </Button>
+          <Link to={`/product/${product.id}`}>
+            <Button 
+              variant="outline" 
+              className="border-uniprimary text-uniprimary hover:bg-uniprimary/10"
+            >
+              <Eye className="h-4 w-4" />
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
