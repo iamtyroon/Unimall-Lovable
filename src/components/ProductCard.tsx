@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { ShoppingBag, Heart, Eye } from "lucide-react";
 import { useState } from "react";
-import { useToast } from "@/components/ui/toast";
+import { useToast } from "@/hooks/use-toast";
 import { useCart } from "@/contexts/CartContext";
 import { Link } from "react-router-dom";
 
@@ -24,7 +24,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const { toast } = useToast();
   
   const handleAddToCart = () => {
-    addToCart(product);
+    // Adding quantity property to match CartItem type
+    addToCart({
+      ...product,
+      quantity: 1
+    });
+    
     toast({
       title: "Added to cart",
       description: `${product.name} has been added to your cart.`,
