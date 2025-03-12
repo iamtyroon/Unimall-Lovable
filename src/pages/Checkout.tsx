@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Separator } from "@/components/ui/separator";
-import { ChevronLeft, CreditCard, ShieldCheck, Lock } from "lucide-react";
+import { ChevronLeft, CreditCard, ShieldCheck, Lock, Phone } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const Checkout = () => {
@@ -30,6 +30,7 @@ const Checkout = () => {
   
   const [paymentMethod, setPaymentMethod] = useState("card");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [mpesaNumber, setMpesaNumber] = useState("");
   
   const handleShippingInfoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -55,20 +56,55 @@ const Checkout = () => {
       });
       return;
     }
+
+    // Validate M-Pesa number if the payment method is M-Pesa
+    if (paymentMethod === "mpesa" && !mpesaNumber) {
+      toast({
+        title: "M-Pesa number required",
+        description: "Please enter your M-Pesa number to continue",
+        variant: "destructive",
+        duration: 3000,
+      });
+      return;
+    }
     
     setIsProcessing(true);
     
     // Simulate processing
     setTimeout(() => {
-      clearCart();
-      setIsProcessing(false);
-      navigate('/order-confirmation');
+      // Display different toast messages based on payment method
+      if (paymentMethod === "mpesa") {
+        toast({
+          title: "M-Pesa Request Sent",
+          description: "Check your phone for the M-Pesa payment prompt",
+          duration: 5000,
+        });
+      }
       
-      toast({
-        title: "Order Placed Successfully",
-        description: "Your order has been confirmed!",
-        duration: 3000,
-      });
+      // Simulate a delay for M-Pesa processing
+      if (paymentMethod === "mpesa") {
+        setTimeout(() => {
+          clearCart();
+          setIsProcessing(false);
+          navigate('/order-confirmation');
+          
+          toast({
+            title: "Payment Received",
+            description: "Your M-Pesa payment was successful!",
+            duration: 3000,
+          });
+        }, 3000);
+      } else {
+        clearCart();
+        setIsProcessing(false);
+        navigate('/order-confirmation');
+        
+        toast({
+          title: "Order Placed Successfully",
+          description: "Your order has been confirmed!",
+          duration: 3000,
+        });
+      }
     }, 2000);
   };
   
@@ -229,6 +265,14 @@ const Checkout = () => {
                     </div>
                     
                     <div className="flex items-center space-x-2 border rounded-lg p-4">
+                      <RadioGroupItem value="mpesa" id="mpesa" />
+                      <Label htmlFor="mpesa" className="flex items-center cursor-pointer flex-1">
+                        <Phone className="mr-2 h-5 w-5 text-green-600" />
+                        <span>M-Pesa</span>
+                      </Label>
+                    </div>
+                    
+                    <div className="flex items-center space-x-2 border rounded-lg p-4">
                       <RadioGroupItem value="paypal" id="paypal" />
                       <Label htmlFor="paypal" className="flex items-center cursor-pointer flex-1">
                         <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -293,6 +337,24 @@ const Checkout = () => {
                       </div>
                     </div>
                   )}
+
+                  {paymentMethod === 'mpesa' && (
+                    <div className="mt-6 space-y-4">
+                      <div>
+                        <Label htmlFor="mpesaNumber">M-Pesa Phone Number</Label>
+                        <Input
+                          id="mpesaNumber"
+                          placeholder="e.g. 254712345678"
+                          className="mt-1"
+                          value={mpesaNumber}
+                          onChange={(e) => setMpesaNumber(e.target.value)}
+                        />
+                        <p className="text-xs text-gray-500 mt-1">
+                          Enter your M-Pesa registered phone number starting with country code (e.g. 254 for Kenya)
+                        </p>
+                      </div>
+                    </div>
+                  )}
                   
                   <div className="flex items-center mt-6 text-gray-600 text-sm">
                     <Lock className="h-4 w-4 mr-2" />
@@ -305,7 +367,9 @@ const Checkout = () => {
                   className="w-full bg-uniprimary hover:bg-uniprimary-dark text-white py-6 text-lg"
                   disabled={isProcessing}
                 >
-                  {isProcessing ? 'Processing...' : 'Place Order'}
+                  {isProcessing ? 
+                    paymentMethod === 'mpesa' ? 'Processing M-Pesa Payment...' : 'Processing...' 
+                    : 'Place Order'}
                 </Button>
               </form>
             </div>
