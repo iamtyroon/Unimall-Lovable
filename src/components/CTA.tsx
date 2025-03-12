@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
-import { Download, Users } from "lucide-react";
+import { Download, Users, ShoppingBag } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const CTA = () => {
   return (
@@ -19,6 +20,11 @@ const CTA = () => {
             <Button className="w-full sm:w-auto bg-white hover:bg-gray-100 text-uniprimary text-lg px-8 py-6">
               <Download className="mr-2 h-5 w-5" /> Get the App
             </Button>
+            <Link to="/shop">
+              <Button className="w-full sm:w-auto bg-unisecondary hover:bg-unisecondary/90 text-white text-lg px-8 py-6">
+                <ShoppingBag className="mr-2 h-5 w-5" /> Start Shopping
+              </Button>
+            </Link>
             <Button variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white/10 text-lg px-8 py-6">
               <Users className="mr-2 h-5 w-5" /> Join as Designer
             </Button>

@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { ShoppingBag, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 
 // Sample product data
 const productCategories = [
@@ -150,9 +151,11 @@ const Products = () => {
         </div>
         
         <div className="text-center mt-10">
-          <Button className="bg-uniprimary hover:bg-uniprimary-dark text-white px-8">
-            View All Products
-          </Button>
+          <Link to="/shop">
+            <Button className="bg-uniprimary hover:bg-uniprimary-dark text-white px-8">
+              View All Products
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

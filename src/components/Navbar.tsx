@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -10,16 +11,16 @@ const Navbar = () => {
     <header className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center">
-          <h1 className="text-2xl font-display font-bold text-uniprimary">
+          <Link to="/" className="text-2xl font-display font-bold text-uniprimary">
             <span className="text-unisecondary">Uni</span>mall
-          </h1>
+          </Link>
         </div>
         
         <nav className="hidden md:flex items-center space-x-8">
           <a href="#features" className="font-medium text-gray-700 hover:text-uniprimary transition-colors">Features</a>
           <a href="#how-it-works" className="font-medium text-gray-700 hover:text-uniprimary transition-colors">How It Works</a>
           <a href="#for-designers" className="font-medium text-gray-700 hover:text-uniprimary transition-colors">For Designers</a>
-          <a href="#products" className="font-medium text-gray-700 hover:text-uniprimary transition-colors">Products</a>
+          <Link to="/shop" className="font-medium text-gray-700 hover:text-uniprimary transition-colors">Shop</Link>
         </nav>
         
         <div className="hidden md:flex items-center space-x-4">
@@ -42,7 +43,7 @@ const Navbar = () => {
             <a href="#features" className="font-medium text-gray-700 py-2 hover:text-uniprimary transition-colors">Features</a>
             <a href="#how-it-works" className="font-medium text-gray-700 py-2 hover:text-uniprimary transition-colors">How It Works</a>
             <a href="#for-designers" className="font-medium text-gray-700 py-2 hover:text-uniprimary transition-colors">For Designers</a>
-            <a href="#products" className="font-medium text-gray-700 py-2 hover:text-uniprimary transition-colors">Products</a>
+            <Link to="/shop" className="font-medium text-gray-700 py-2 hover:text-uniprimary transition-colors">Shop</Link>
             <Button className="bg-uniprimary hover:bg-uniprimary-dark text-white w-full">
               Get the App
             </Button>
