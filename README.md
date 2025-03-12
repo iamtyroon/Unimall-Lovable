@@ -1,69 +1,101 @@
-# Welcome to your Lovable project
 
-## Project info
+# Unimall - E-Commerce Platform
 
-**URL**: https://lovable.dev/projects/bed49cbd-7981-415e-bc5a-ea6a0742cbf8
+Unimall is a modern e-commerce platform built with React and TypeScript, featuring a clean UI with Tailwind CSS and shadcn-ui components.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- **Product Browsing**: Browse through various product categories
+- **Product Details**: View detailed information about each product
+- **Shopping Cart**: Add items to cart, modify quantities, and remove items
+- **Checkout Process**: Seamless checkout experience with multiple payment options
+- **M-Pesa Integration**: Support for M-Pesa mobile payment system
+- **Responsive Design**: Optimized for all device sizes
 
-**Use Lovable**
+## Technologies Used
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/bed49cbd-7981-415e-bc5a-ea6a0742cbf8) and start prompting.
+- **React**: Frontend library for building user interfaces
+- **TypeScript**: Static type-checking for JavaScript
+- **Tailwind CSS**: Utility-first CSS framework
+- **shadcn-ui**: High-quality React components built with Radix UI and Tailwind
+- **React Router**: Declarative routing for React
+- **React Hook Form**: Form handling with validation
+- **Zod**: TypeScript-first schema validation
+- **React Query**: Data-fetching library
 
-Changes made via Lovable will be committed automatically to this repo.
+## Getting Started
 
-**Use your preferred IDE**
+### Prerequisites
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- Node.js (v16 or higher)
+- npm or yarn package manager
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Installation
 
-Follow these steps:
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/yourusername/unimall.git
+   cd unimall
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+2. Install dependencies:
+   ```sh
+   npm install
+   # or
+   yarn install
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+3. Start the development server:
+   ```sh
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+4. Open your browser and navigate to `http://localhost:5173`
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+## Project Structure
+
+```
+src/
+├── components/         # UI components
+├── contexts/           # React contexts (cart, auth, etc.)
+├── hooks/              # Custom React hooks
+├── lib/                # Utility functions
+├── pages/              # Page components
+│   ├── Index.tsx       # Homepage
+│   ├── Shopping.tsx    # Product listing
+│   ├── ProductDetail.tsx # Product details
+│   ├── Checkout.tsx    # Checkout process
+│   └── OrderConfirmation.tsx # Order confirmation
+└── main.tsx            # Application entry point
 ```
 
-**Edit a file directly in GitHub**
+## Payment Integration
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### M-Pesa Integration
 
-**Use GitHub Codespaces**
+The platform includes integration with M-Pesa mobile payment system, allowing customers to make payments directly from their mobile phones. The integration includes:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- Phone number validation
+- Secure payment processing
+- Transaction confirmation
 
-## What technologies are used for this project?
+## Contributing
 
-This project is built with .
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## License
 
-## How can I deploy this project?
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-Simply open [Lovable](https://lovable.dev/projects/bed49cbd-7981-415e-bc5a-ea6a0742cbf8) and click on Share -> Publish.
+## Acknowledgments
 
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+- [shadcn/ui](https://ui.shadcn.com/) for the beautiful UI components
+- [Tailwind CSS](https://tailwindcss.com/) for the styling framework
+- [Vite](https://vitejs.dev/) for the fast development environment
+- All open-source contributors whose libraries were used in this project
