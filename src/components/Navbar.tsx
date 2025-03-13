@@ -2,13 +2,15 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User, LogOut } from "lucide-react";
 import ShoppingCart from "./ShoppingCart";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const { user, signOut } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,24 +69,55 @@ const Navbar = () => {
             >
               Features
             </a>
-            <a
-              href="#for-designers"
-              className="font-medium text-gray-700 hover:text-uniprimary transition-colors"
+            <Link
+              to="/designer-application"
+              className={`font-medium ${
+                location.pathname === "/designer-application"
+                  ? "text-uniprimary"
+                  : "text-gray-700 hover:text-uniprimary transition-colors"
+              }`}
             >
               For Designers
-            </a>
+            </Link>
           </nav>
 
           {/* Right Side Actions */}
           <div className="hidden md:flex items-center space-x-4">
             <ShoppingCart />
             
-            <Button variant="outline" className="border-uniprimary text-uniprimary hover:bg-uniprimary/10">
-              Sign In
-            </Button>
-            <Button className="bg-uniprimary hover:bg-uniprimary-dark text-white">
-              Sign Up
-            </Button>
+            {user ? (
+              <div className="flex items-center space-x-4">
+                <Button 
+                  variant="ghost" 
+                  className="flex items-center space-x-2 text-gray-700"
+                  onClick={() => {}}
+                >
+                  <User className="h-4 w-4" />
+                  <span>Profile</span>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="border-uniprimary text-uniprimary hover:bg-uniprimary/10"
+                  onClick={() => signOut()}
+                >
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <>
+                <Link to="/auth">
+                  <Button variant="outline" className="border-uniprimary text-uniprimary hover:bg-uniprimary/10">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link to="/auth?tab=register">
+                  <Button className="bg-uniprimary hover:bg-uniprimary-dark text-white">
+                    Sign Up
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -134,24 +167,48 @@ const Navbar = () => {
               >
                 Features
               </a>
-              <a
-                href="#for-designers"
-                className="font-medium px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100"
+              <Link
+                to="/designer-application"
+                className={`font-medium px-4 py-2 rounded-md ${
+                  location.pathname === "/designer-application"
+                    ? "bg-uniprimary/10 text-uniprimary"
+                    : "text-gray-700 hover:bg-gray-100"
+                }`}
               >
                 For Designers
-              </a>
-              <Link
-                to="/sign-in"
-                className="font-medium px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100"
-              >
-                Sign In
               </Link>
-              <Link
-                to="/sign-up"
-                className="font-medium px-4 py-2 rounded-md bg-uniprimary text-white hover:bg-uniprimary-dark"
-              >
-                Sign Up
-              </Link>
+              
+              {user ? (
+                <>
+                  <Link
+                    to="/profile"
+                    className="font-medium px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100"
+                  >
+                    Profile
+                  </Link>
+                  <button
+                    onClick={() => signOut()}
+                    className="font-medium px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100 text-left"
+                  >
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/auth"
+                    className="font-medium px-4 py-2 rounded-md text-gray-700 hover:bg-gray-100"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    to="/auth?tab=register"
+                    className="font-medium px-4 py-2 rounded-md bg-uniprimary text-white hover:bg-uniprimary-dark"
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
             </nav>
           </div>
         )}

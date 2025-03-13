@@ -25,9 +25,11 @@ const CTA = () => {
                 <ShoppingBag className="mr-2 h-5 w-5" /> Start Shopping
               </Button>
             </Link>
-            <Button variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white/10 text-lg px-8 py-6">
-              <Users className="mr-2 h-5 w-5" /> Join as Designer
-            </Button>
+            <Link to="/designer-application">
+              <Button variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white/10 text-lg px-8 py-6">
+                <Users className="mr-2 h-5 w-5" /> Join as Designer
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

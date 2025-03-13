@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ShoppingBag } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -19,12 +20,16 @@ const Hero = () => {
                 Discover stylish clothing that won't break the bank.
               </p>
               <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <Button className="w-full sm:w-auto bg-uniprimary hover:bg-uniprimary-dark text-white px-8 py-6 text-lg">
-                  Start Shopping <ShoppingBag className="ml-2 h-5 w-5" />
-                </Button>
-                <Button variant="outline" className="w-full sm:w-auto border-uniprimary text-uniprimary hover:bg-uniprimary/10 px-8 py-6 text-lg">
-                  For Designers <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+                <Link to="/shop">
+                  <Button className="w-full sm:w-auto bg-uniprimary hover:bg-uniprimary-dark text-white px-8 py-6 text-lg">
+                    Start Shopping <ShoppingBag className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+                <Link to="/designer-application">
+                  <Button variant="outline" className="w-full sm:w-auto border-uniprimary text-uniprimary hover:bg-uniprimary/10 px-8 py-6 text-lg">
+                    For Designers <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

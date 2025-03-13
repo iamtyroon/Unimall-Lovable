@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ChevronRight, Palette, TrendingUp, DollarSign } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const benefits = [
   {
@@ -51,9 +52,11 @@ const ForDesigners = () => {
                 ))}
               </div>
               
-              <Button className="bg-unisecondary hover:bg-unisecondary-dark text-white">
-                Join as a Designer <ChevronRight className="ml-2 h-4 w-4" />
-              </Button>
+              <Link to="/designer-application">
+                <Button className="bg-unisecondary hover:bg-unisecondary-dark text-white">
+                  Join as a Designer <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
             </div>
           </div>
           
