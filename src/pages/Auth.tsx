@@ -1,6 +1,6 @@
 
-import { useState } from "react";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { toast } from "sonner";
 
 const signInSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -31,6 +32,7 @@ const Auth = () => {
   const { user, loading, signIn, signUp } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   
   // Get the tab from the URL if it exists
   const searchParams = new URLSearchParams(location.search);
@@ -56,6 +58,16 @@ const Auth = () => {
     },
   });
 
+  useEffect(() => {
+    // Update active tab when URL changes
+    const tab = searchParams.get('tab');
+    if (tab === 'register') {
+      setActiveTab('register');
+    } else if (tab === 'login') {
+      setActiveTab('login');
+    }
+  }, [location.search, searchParams]);
+
   const handleSignIn = async (data: SignInFormValues) => {
     setIsSubmitting(true);
     const { error } = await signIn(data.email, data.password);
@@ -64,6 +76,8 @@ const Auth = () => {
     if (!error) {
       // Reset form on success
       loginForm.reset();
+      toast.success("Successfully signed in!");
+      navigate('/');
     }
   };
 
@@ -81,6 +95,7 @@ const Auth = () => {
     if (!error) {
       // Reset form on success
       registerForm.reset();
+      toast.success("Account created! Please check your email for confirmation.");
       // Switch to login tab to encourage signing in after registration
       setActiveTab("login");
     }
@@ -102,7 +117,7 @@ const Auth = () => {
               Welcome to <span className="text-uniprimary">Unimall</span>
             </h1>
             
-            <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="w-full">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="grid w-full grid-cols-2 mb-8">
                 <TabsTrigger value="login">Sign In</TabsTrigger>
                 <TabsTrigger value="register">Sign Up</TabsTrigger>

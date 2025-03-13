@@ -2,8 +2,11 @@
 import { Button } from "@/components/ui/button";
 import { Download, Users, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 const CTA = () => {
+  const { user } = useAuth();
+  
   return (
     <section className="py-20 bg-gradient-to-r from-uniprimary to-uniprimary-dark text-white">
       <div className="container mx-auto px-4">
@@ -25,11 +28,19 @@ const CTA = () => {
                 <ShoppingBag className="mr-2 h-5 w-5" /> Start Shopping
               </Button>
             </Link>
-            <Link to="/designer-application">
-              <Button variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white/10 text-lg px-8 py-6">
-                <Users className="mr-2 h-5 w-5" /> Join as Designer
-              </Button>
-            </Link>
+            {user ? (
+              <Link to="/designer-application">
+                <Button variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white/10 text-lg px-8 py-6">
+                  <Users className="mr-2 h-5 w-5" /> Join as Designer
+                </Button>
+              </Link>
+            ) : (
+              <Link to="/auth?tab=register">
+                <Button variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white/10 text-lg px-8 py-6">
+                  <Users className="mr-2 h-5 w-5" /> Sign Up Now
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </div>

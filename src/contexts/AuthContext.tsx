@@ -52,13 +52,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       });
       
       if (error) {
-        toast.error("Failed to sign in: " + error.message);
+        if (error.message.includes("Email not confirmed")) {
+          toast.error("Please check your email to confirm your account before signing in.");
+        } else if (error.message.includes("Invalid login credentials")) {
+          toast.error("Invalid email or password. Please try again.");
+        } else {
+          toast.error("Failed to sign in: " + error.message);
+        }
         return { error };
       }
       
       toast.success("Signed in successfully!");
       return { error: null };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error signing in:', error);
       toast.error("An unexpected error occurred");
       return { error };
@@ -76,13 +82,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       });
       
       if (error) {
-        toast.error("Failed to sign up: " + error.message);
+        if (error.message.includes("already registered")) {
+          toast.error("This email is already registered. Please sign in instead.");
+        } else {
+          toast.error("Failed to sign up: " + error.message);
+        }
         return { error };
       }
       
-      toast.success("Signed up successfully! Please check your email for confirmation.");
+      if (data.user && !data.user.confirmed_at) {
+        toast.success("Signed up successfully! Please check your email for confirmation.");
+      } else {
+        toast.success("Signed up successfully!");
+      }
+      
       return { error: null };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error signing up:', error);
       toast.error("An unexpected error occurred");
       return { error };

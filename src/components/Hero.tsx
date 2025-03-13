@@ -2,8 +2,11 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Hero = () => {
+  const { user } = useAuth();
+  
   return (
     <section className="pt-24 pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
       <div className="container mx-auto px-4">
@@ -25,11 +28,19 @@ const Hero = () => {
                     Start Shopping <ShoppingBag className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
-                <Link to="/designer-application">
-                  <Button variant="outline" className="w-full sm:w-auto border-uniprimary text-uniprimary hover:bg-uniprimary/10 px-8 py-6 text-lg">
-                    For Designers <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
+                {user ? (
+                  <Link to="/designer-application">
+                    <Button variant="outline" className="w-full sm:w-auto border-uniprimary text-uniprimary hover:bg-uniprimary/10 px-8 py-6 text-lg">
+                      For Designers <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link to="/auth?tab=register">
+                    <Button variant="outline" className="w-full sm:w-auto border-uniprimary text-uniprimary hover:bg-uniprimary/10 px-8 py-6 text-lg">
+                      Join Now <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
+                )}
               </div>
             </div>
           </div>
